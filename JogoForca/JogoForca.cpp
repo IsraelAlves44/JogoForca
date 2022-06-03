@@ -7,11 +7,11 @@
 
 using namespace std;
 
-void limpatela() {
+void screenCleaner() {
     system("CLS");
 }
 
-string randomword() {
+string randomWord() {
     string palavras[3] = { "arroz","pera","feijao" };
 
     int indicealatorio = rand() % 3;
@@ -20,10 +20,87 @@ string randomword() {
     
 }
 
-void playalone() {
+string returnMaskedWord (string word, int wordSize) {
+    int cont = 0;
+
+    string maskedWord;
+
+    while (cont < wordSize)
+    {
+        maskedWord += "_";
+        cont++;
+    }
+
+    return maskedWord;
+}
+
+void showStatus(string maskedWord, int wordSize, int remainingAttempts, string crossedOutLetters) {
+
+    cout << "Palavra " << maskedWord << " (Tamanho: " << wordSize << ")";
+    cout << "\nTentativas restantes:" << remainingAttempts;
+
+    int cont = 0;
+    cout << "\nLetras Riscadas: ";
+
+    for (cont = 0; cont < crossedOutLetters.size(); cont++)
+    {
+        cout << crossedOutLetters[cont] << ", ";
+    }
+}
+
+void playAlone() {
    
-    string palavra = randomword();
-    cout << "A palavra secreta é " << palavra;
+    string word = randomWord();
+
+    int wordSize = word.size();
+
+    string maskedWord = returnMaskedWord(word, wordSize);
+
+    int attempts = 0, maximumAttempts =  5;
+    int cont = 0;
+    char letter{};
+    string crossedOutLetters;
+    bool typedLetter{};
+
+    while (maximumAttempts - attempts > 0 && word != maskedWord)
+    {
+        screenCleaner();
+        showStatus(maskedWord, wordSize, maximumAttempts - attempts, crossedOutLetters);
+        cout << "\nDigite uma letra: ";
+        cin >> letter;
+        crossedOutLetters += letter;
+        
+
+        for (cont = 0; cont < attempts; cont++)
+        {
+            if (crossedOutLetters[cont] == letter) {
+                cout << "Essa letra já foi digitada1!";
+                typedLetter = true;
+            }
+        }
+
+        if (typedLetter == false)
+        {
+            for (cont = 0; cont < wordSize; cont++)
+            {
+                if (word[cont] == letter) {
+                    maskedWord[cont] = word[cont];
+                }
+            }
+            attempts++;
+        }
+        
+    }
+
+    if (word == maskedWord)
+    {
+        screenCleaner();
+        cout << "Parabéns, você venceu!";
+    }
+    else {
+        screenCleaner();
+        cout << "O número de tentativas foi estourado, você perdeu! :(";
+    }
 }
 
 void menuInicial() {
@@ -32,7 +109,7 @@ void menuInicial() {
 
     while (opcao < 1 || opcao > 3)
     {
-        limpatela();
+        screenCleaner();
         cout << "Bem-vindo ao jogo";
         cout << "\n1 - Jogar";
         cout << "\n2 - Sobre";
@@ -44,7 +121,7 @@ void menuInicial() {
         switch (opcao)
         {
         case 1:
-            playalone();
+            playAlone();
             break;
         case 2:
             cout << "informacoes";
