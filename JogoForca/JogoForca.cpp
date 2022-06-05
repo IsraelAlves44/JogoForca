@@ -48,9 +48,23 @@ void showStatus(string maskedWord, int wordSize, int remainingAttempts, string c
     }
 }
 
-int playAlone() {
+int play(int players) {
+
+    string word;
+
+    //Confere número de jogadores
+    if (players == 1) {
+
+        word = randomWord();
+    }
+    else {
+
+        cout << "Digite uma palavra: ";
+        cin >> word;
+      
+    }
    
-    string word = randomWord();
+    
 
     int wordSize = word.size();
 
@@ -158,9 +172,10 @@ void menuInicial() {
     {
         screenCleaner();
         cout << "Bem-vindo ao jogo";
-        cout << "\n1 - Jogar";
+        cout << "\n1 - Jogar Sozinho";
         cout << "\n2 - Sobre";
         cout << "\n3 - Sair";
+        cout << "\n4 - Jogar em dupla";
         cout << "\n1 - Escolha uma opcao e tecle ENTER: ";
 
         cin >> option;
@@ -168,7 +183,7 @@ void menuInicial() {
         switch (option)
         {
         case 1:
-            if (playAlone() == 1) {
+            if (play(1) == 1) {
                 menuInicial();
             }
             else {
@@ -195,7 +210,14 @@ void menuInicial() {
         case 3:
             cout << "saindo";
             break;
+
+        case 4:
+            if (play(2) == 1) {
+                menuInicial();
+            }
+            break;
         }
+        
 
     }
 }
