@@ -176,7 +176,21 @@ void menuInicial() {
             }
             break;
         case 2:
-            cout << "informacoes";
+
+            
+            screenCleaner();
+            cout << "*****Informações*****";
+            cout << "Featured by Israel Alves em 2022";
+            cout << "\n1 - Voltar";
+            cout << "\n2 - Sair\n: ";
+            cin >> option;
+
+            if (option == 1) {
+                menuInicial();
+            }
+            else {
+                cout << "Até mais :)";
+            }
             break;
         case 3:
             cout << "saindo";
