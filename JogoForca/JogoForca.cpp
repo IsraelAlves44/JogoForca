@@ -17,7 +17,6 @@ string randomWord() {
     int indicealatorio = rand() % 3;
 
     return palavras[indicealatorio];
-    
 }
 
 string returnMaskedWord (string word, int wordSize) {
@@ -39,8 +38,8 @@ void showStatus(string maskedWord, int wordSize, int remainingAttempts, string c
     cout << "Palavra " << maskedWord << " (Tamanho: " << wordSize << ")";
     cout << "\nTentativas restantes:" << remainingAttempts;
 
-    int cont = 0;
-    cout << "\nLetras Riscadas: ";
+    int cont;
+    cout << "\nLetras arriscadas: ";
 
     for (cont = 0; cont < crossedOutLetters.size(); cont++)
     {
@@ -62,25 +61,29 @@ void playAlone() {
     string crossedOutLetters;
     bool typedLetter{};
 
-    while (maximumAttempts - attempts > 0 && word != maskedWord)
+    while (word != maskedWord && maximumAttempts - attempts > 0)
     {
-        screenCleaner();
+    
         showStatus(maskedWord, wordSize, maximumAttempts - attempts, crossedOutLetters);
+        
         cout << "\nDigite uma letra: ";
         cin >> letter;
-        crossedOutLetters += letter;
-        
 
+        // Se for a mesma letra já digitada
         for (cont = 0; cont < attempts; cont++)
         {
-            if (crossedOutLetters[cont] == letter) {
-                cout << "Essa letra já foi digitada1!";
+            if (crossedOutLetters[cont] == letter)
+            {
+                cout << "\nEssa letra já foi digitada!\n";
                 typedLetter = true;
             }
+            // Se for uma letra nova
         }
 
         if (typedLetter == false)
         {
+            crossedOutLetters += letter;
+
             for (cont = 0; cont < wordSize; cont++)
             {
                 if (word[cont] == letter) {
@@ -89,7 +92,7 @@ void playAlone() {
             }
             attempts++;
         }
-        
+       
     }
 
     if (word == maskedWord)
