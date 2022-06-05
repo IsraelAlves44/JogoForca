@@ -33,9 +33,10 @@ string returnMaskedWord (string word, int wordSize) {
     return maskedWord;
 }
 
-void showStatus(string maskedWord, int wordSize, int remainingAttempts, string crossedOutLetters) {
+void showStatus(string maskedWord, int wordSize, int remainingAttempts, string crossedOutLetters, string messages) {
 
-    cout << "Palavra " << maskedWord << " (Tamanho: " << wordSize << ")";
+    cout << messages;
+    cout << "\nPalavra " << maskedWord << " (Tamanho: " << wordSize << ")";
     cout << "\nTentativas restantes:" << remainingAttempts;
 
     int cont;
@@ -60,11 +61,13 @@ void playAlone() {
     char letter{};
     string crossedOutLetters;
     bool typedLetter{};
+    string messages = "Bem-vindo ao jogo";
 
     while (word != maskedWord && maximumAttempts - attempts > 0)
     {
+        screenCleaner();
     
-        showStatus(maskedWord, wordSize, maximumAttempts - attempts, crossedOutLetters);
+        showStatus(maskedWord, wordSize, maximumAttempts - attempts, crossedOutLetters, messages);
         
         cout << "\nDigite uma letra: ";
         cin >> letter;
@@ -74,7 +77,7 @@ void playAlone() {
         {
             if (crossedOutLetters[cont] == letter)
             {
-                cout << "\nEssa letra já foi digitada!\n";
+                messages = "Essa letra já foi digitada!";
                 typedLetter = true;
             }
             // Se for uma letra nova
@@ -82,11 +85,14 @@ void playAlone() {
 
         if (typedLetter == false)
         {
+
+            
             crossedOutLetters += letter;
 
             for (cont = 0; cont < wordSize; cont++)
             {
                 if (word[cont] == letter) {
+                    messages = "Você acertou uma letra!";
                     maskedWord[cont] = word[cont];
                 }
             }
