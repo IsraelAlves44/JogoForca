@@ -62,6 +62,7 @@ void playAlone() {
     string crossedOutLetters;
     bool typedLetter{};
     string messages = "Bem-vindo ao jogo";
+    bool rightLetter{};
 
     while (word != maskedWord && maximumAttempts - attempts > 0)
     {
@@ -92,14 +93,28 @@ void playAlone() {
             for (cont = 0; cont < wordSize; cont++)
             {
                 if (word[cont] == letter) {
-                    messages = "Você acertou uma letra!";
                     maskedWord[cont] = word[cont];
+                    rightLetter = true;
                 }
             }
+            
+
+            if (rightLetter == false) {
+                messages = "Você errou uma letra!";
+            }
+            else {
+                messages = "Você acertou uma letra!";
+                rightLetter = false;
+            }
+
             attempts++;
         }
-       
+
+        typedLetter = false;
+        rightLetter = false;
     }
+
+    
 
     if (word == maskedWord)
     {
