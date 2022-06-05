@@ -48,7 +48,7 @@ void showStatus(string maskedWord, int wordSize, int remainingAttempts, string c
     }
 }
 
-void playAlone() {
+int playAlone() {
    
     string word = randomWord();
 
@@ -56,7 +56,7 @@ void playAlone() {
 
     string maskedWord = returnMaskedWord(word, wordSize);
 
-    int attempts = 0, maximumAttempts =  5;
+    int attempts = 0, maximumAttempts =  10;
     int cont = 0;
     char letter{};
     string crossedOutLetters;
@@ -64,6 +64,7 @@ void playAlone() {
     string messages = "Bem-vindo ao jogo";
     bool rightLetter{};
     string wordTry;
+    int option;
 
     while (word != maskedWord && maximumAttempts - attempts > 0)
     {
@@ -131,18 +132,30 @@ void playAlone() {
     {
         screenCleaner();
         cout << "Parabéns, você venceu!";
+        cout << "Deseja reiniciar?";
+
+        cout << "\n1 - Sim";
+        cout << "\n2 - Não\n";
+        cin >> option;
+        return option;
     }
     else {
         screenCleaner();
         cout << "O número de tentativas foi estourado, você perdeu! :(";
+        cout << "\nDesenja reiniciar?";
+        cout << "\n1 - Sim";
+        cout << "\n2 - Não\n";
+        cin >> option;
+
+        return option;
     }
 }
 
 void menuInicial() {
 
-    int opcao = 0;
+    int option = 0;
 
-    while (opcao < 1 || opcao > 3)
+    while (option < 1 || option > 3)
     {
         screenCleaner();
         cout << "Bem-vindo ao jogo";
@@ -151,12 +164,17 @@ void menuInicial() {
         cout << "\n3 - Sair";
         cout << "\n1 - Escolha uma opcao e tecle ENTER: ";
 
-        cin >> opcao;
+        cin >> option;
 
-        switch (opcao)
+        switch (option)
         {
         case 1:
-            playAlone();
+            if (playAlone() == 1) {
+                menuInicial();
+            }
+            else {
+                cout << "Até mais :)";
+            }
             break;
         case 2:
             cout << "informacoes";
