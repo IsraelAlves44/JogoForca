@@ -63,6 +63,7 @@ void playAlone() {
     bool typedLetter{};
     string messages = "Bem-vindo ao jogo";
     bool rightLetter{};
+    string wordTry;
 
     while (word != maskedWord && maximumAttempts - attempts > 0)
     {
@@ -70,8 +71,18 @@ void playAlone() {
     
         showStatus(maskedWord, wordSize, maximumAttempts - attempts, crossedOutLetters, messages);
         
-        cout << "\nDigite uma letra: ";
+        cout << "\nDigite uma letra: (ou digite 1 para arriscar a palavra): ";
         cin >> letter;
+
+        if (letter == '1') {
+            cin >> wordTry;
+            if (wordTry == word) {
+                maskedWord = wordTry;
+            }
+            else {
+                attempts = maximumAttempts;
+            }
+        }
 
         // Se for a mesma letra já digitada
         for (cont = 0; cont < attempts; cont++)
