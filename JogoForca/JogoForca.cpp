@@ -93,18 +93,17 @@ int playAlone() {
                 messages = "Essa letra já foi digitada!";
                 typedLetter = true;
             }
-            // Se for uma letra nova
         }
 
         if (typedLetter == false)
         {
 
             
-            crossedOutLetters += letter;
+            crossedOutLetters += tolower(letter);
 
             for (cont = 0; cont < wordSize; cont++)
             {
-                if (word[cont] == letter) {
+                if (word[cont] == tolower(letter)) {
                     maskedWord[cont] = word[cont];
                     rightLetter = true;
                 }
